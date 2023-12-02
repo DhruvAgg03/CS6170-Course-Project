@@ -7,7 +7,7 @@ High Collision Input - multipleCollisionsNew.py
 Execution:\
 final.py
 
-Linear Program Solver:\ 
+Linear Program Solver:
 Solver.py
 
 Plotting Logs:\
