@@ -2,13 +2,13 @@
 Input generations:\
 Random input - Input_generator.py\
 Worst Case Input - worstCaseGenerator.py\
-High Collision Input - multipleCollisionsNew.py\
+High Collision Input - multipleCollisionsNew.py
 
 Execution:\
-final.py\
+final.py
 
 Linear Program Solver:\ 
-Solver.py\
+Solver.py
 
 Plotting Logs:\
-plotter.py\
+plotter.py
