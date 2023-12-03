@@ -1,6 +1,9 @@
 import random
 import sys
 import Input_generator
+from random import shuffle
+
+#latest code
 
 def writer(x):
     sys.stdout.write(x)
@@ -12,13 +15,12 @@ def inputWithCollidingEdgeSet(fileName,N,netCount,treesPerNet,edgeSetSize):
     writer(str(N)+"\n")
     writer(str(netCount)+"\n")
     writer(str(treesPerNet)+"\n")
-    treesPerNet -= 1
+    # treesPerNet -= 1
     edgeSet = []
     extraEdge = []
-    
-    edgeSetSize = treesPerNet + 1
-    extra = netCount // edgeSetSize + 1
-    for i in range(edgeSetSize + extra):
+    edgeSetSize = 20
+    # extra = netCount // edgeSetSize + 1
+    for i in range(edgeSetSize):
         randX1 = random.randint(1,N-2)
         randY1 = random.randint(1,N-2)
         d = random.randint(1,4) #direction
@@ -35,18 +37,26 @@ def inputWithCollidingEdgeSet(fileName,N,netCount,treesPerNet,edgeSetSize):
             randX2 = randX1
             randY2 = randY1 - 1
         
-        if i >= edgeSetSize:
-            extraEdge.append(Input_generator.Edge(Input_generator.Coordinate(randX1,randY1),Input_generator.Coordinate(randX2,randY2)))
-        else:
-            edgeSet.append(Input_generator.Edge(Input_generator.Coordinate(randX1,randY1),Input_generator.Coordinate(randX2,randY2)))
+        edgeSet.append(Input_generator.Edge(Input_generator.Coordinate(randX1,randY1),Input_generator.Coordinate(randX2,randY2)))
+        # if i >= edgeSetSize:
+        #     extraEdge.append(Input_generator.Edge(Input_generator.Coordinate(randX1,randY1),Input_generator.Coordinate(randX2,randY2)))
+        # else:
+        #     edgeSet.append(Input_generator.Edge(Input_generator.Coordinate(randX1,randY1),Input_generator.Coordinate(randX2,randY2)))
+    
+    #print(extraEdge)
     
     for i in range(netCount):
-        for j in range(treesPerNet):
-            tree = [edgeSet[(i*treesPerNet + j)%edgeSetSize]]
-            Input_generator.PrintTree(tree)
+        shuffle(edgeSet)
         cnt = i//edgeSetSize
-        tree = [extraEdge[cnt]]
-        Input_generator.PrintTree(tree)
+        for j in range(treesPerNet):
+            treeSize = edgeSetSize//treesPerNet
+            tree = edgeSet[j*treeSize:min((j+1)*treeSize, edgeSetSize)]
+            # tree = [edgeSet[(i*treesPerNet + j)%edgeSetSize], edgeSet[(i*treesPerNet + j + 1)%edgeSetSize]]
+            Input_generator.PrintTree(tree)
+            # tree = [edgeSet[(i*treesPerNet + j)%edgeSetSize] , extraEdge[cnt]]
+            # Input_generator.PrintTree(tree)
+        #tree = [extraEdge[cnt]]
+        #Input_generator.PrintTree(tree)
     
     sys.stdout.close()
     sys.stdout = stdout_fileno
